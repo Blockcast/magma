@@ -1564,10 +1564,10 @@
     morgan "^1.9.1"
     winston "^3.0.0"
 
-"@fbcnms/platform-server@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@fbcnms/platform-server/-/platform-server-0.1.10.tgz#0f4d3e528606ac296ab5175af15ae2a8b71a25df"
-  integrity sha512-T8bmPGSclxxrvJn1Ppp9+Npidr9qsPQRuLRH6FCmGB99EMKCfLHp4j639PhJCJOglHx8PEgZouDntKPX4WnTLg==
+"@fbcnms/platform-server@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@fbcnms/platform-server/-/platform-server-0.1.12.tgz#987faacc01af6396988f5bf3cc7cccf1868c28de"
+  integrity sha512-dNdT86ZPwGZGe3eK9OqfX5H0ly1Qa9iKTt9CUOpclvJfLihG2oQEHZn3TC9FiUMqGqYSqX0doulKSREttIhdMg==
   dependencies:
     "@fbcnms/auth" "^0.1.0"
     "@fbcnms/babel-register" "^0.1.0"
@@ -1575,7 +1575,7 @@
     "@fbcnms/logging" "^0.1.0"
     "@fbcnms/magma-api" "^0.1.0"
     "@fbcnms/sequelize-models" "^0.1.0"
-    "@fbcnms/types" "^0.1.1"
+    "@fbcnms/types" "^0.1.2"
     "@fbcnms/util" "^0.1.0"
     add "^2.0.6"
     axios "^0.18.0"
@@ -1616,10 +1616,10 @@
   resolved "https://registry.yarnpkg.com/@fbcnms/strings/-/strings-0.1.0.tgz#50dae22b4cb7cb7d1a30c013d0b40c96b741a1f1"
   integrity sha512-w1Z12YAhufVCsKL1lcO4+wwfwnQPwaLZyE5jjt36yg/2fcCRrpv55r3V+7M/VDc8wDOK4yRgJwiwEuOPrrwfKw==
 
-"@fbcnms/types@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@fbcnms/types/-/types-0.1.1.tgz#c857cbcec119539b56780f5bf134fc5b445e7dd6"
-  integrity sha512-pRkV23/izRAefxaZ6i0pL1nMZv+lM9kWY/VzAZXiNJoyevzO/X6Ug8y1KekB+TLkYB6DnVadfENFQlJUSPgC9Q==
+"@fbcnms/types@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@fbcnms/types/-/types-0.1.2.tgz#db47bfd7e05032f3a444057d3e9e5676d054e0be"
+  integrity sha512-gvCdm1pOqbq2gdHwjl2BiTGh46Y3aBvHjSeaAhyDEshZ/tmD88HfUqLSp7mnp4yxp7dkCHCbiMq4uF8yD9HJhQ==
 
 "@fbcnms/ui@^0.1.4":
   version "0.1.4"
@@ -10592,10 +10592,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.5.tgz#d6d56282455243f2f92cc1716692c08aa31522d4"
-  integrity sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==
+prettier@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.1.1.tgz#d9485dd5e499daa6cb547023b87a6cf51bee37d6"
+  integrity sha512-9bY+5ZWCfqj3ghYBLxApy2zf6m+NJo5GzmLTpr9FsApsfjriNnS2dahWReHMi7qNPhhHl9SYHJs2cHZLgexNIw==
 
 pretty-format@^24.0.0, pretty-format@^24.9.0:
   version "24.9.0"
