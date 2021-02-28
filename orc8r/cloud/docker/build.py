@@ -38,6 +38,7 @@ MODULES = [
     'cwf',
     'wifi',
     'fbinternal',
+    '../blockcast/cache',
 ]
 
 DEPLOYMENT_TO_MODULES = {
@@ -52,6 +53,7 @@ DEPLOYMENT_TO_MODULES = {
     'cwf-f': ['lte', 'feg', 'cwf', 'fbinternal'],
     'wifi': ['wifi'],
     'wifi-f': ['wifi', 'fbinternal'],
+    'blockcast': ['orc8r', '../blockcast/cache']
 }
 
 DEPLOYMENTS = DEPLOYMENT_TO_MODULES.keys()
@@ -71,34 +73,35 @@ MagmaModule = namedtuple('MagmaModule', ['name', 'host_path'])
 def main() -> None:
     args = _parse_args()
     mods = _get_modules(DEPLOYMENT_TO_MODULES[args.deployment])
+    #module_env_arg = ['-e', 'MAGMA_MODULES=%s' % ' '.join(mods)]
 
     if not args.extras:
         _create_build_context(mods)
 
     if args.mount:
-        _run(['build', 'test'])
+        _run(_get_default_build_args(args) + ['test'])
         _run(['run', '--rm'] + _get_mnt_vols(mods) + ['test', 'bash'])
         _down(args)
     elif args.generate:
-        _run(['build', 'test'])
+        _run(_get_default_build_args(args) + ['test'])
         _run(['run', '--rm'] + _get_mnt_vols(mods) + ['test', 'make fullgen'])
         _down(args)
     elif args.lint:
-        _run(['build', 'test'])
+        _run(_get_default_build_args(args) + ['test'])
         _run(['run', '--rm'] + _get_mnt_vols(mods) + ['test', 'make lint'])
         _down(args)
     elif args.precommit:
-        _run(['build', 'test'])
+        _run(_get_default_build_args(args) + ['test'])
         _run(['run', '--rm'] + _get_mnt_vols(mods) + ['test', 'make precommit'])
         _down(args)
     elif args.coverage:
         _run(['up', '-d', 'postgres_test'])
-        _run(['build', 'test'])
+        _run(_get_default_build_args(args) + ['test'])
         _run(['run', '--rm'] + _get_mnt_vols(mods) + ['test', 'make cover'])
         _down(args)
     elif args.tests:
         _run(['up', '-d', 'postgres_test'])
-        _run(['build', 'test'])
+        _run(_get_default_build_args(args) + ['test'])
         _run(['run', '--rm', 'test', 'make test'])
         _down(args)
     else:
@@ -175,7 +178,6 @@ def _get_default_file_args(args: argparse.Namespace) -> List[str]:
     # Default implicitly to docker-compose.yml + docker-compose.override.yml
     return make_file_args()
 
-
 def _get_default_build_args(args: argparse.Namespace) -> List[str]:
     mods = DEPLOYMENT_TO_MODULES[args.deployment]
     ret = [
@@ -211,7 +213,7 @@ def _copy_module(module: MagmaModule) -> None:
     if os.path.isdir(os.path.join(module.host_path, 'cloud', 'configs')):
         shutil.copytree(
             os.path.join(module.host_path, 'cloud', 'configs'),
-            os.path.join(HOST_BUILD_CTX, 'configs', module.name),
+            os.path.join(HOST_BUILD_CTX, 'configs', module.name.split("/")[-1]),
         )
 
     # Copy the go.mod file for caching the go downloads

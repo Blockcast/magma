@@ -17,6 +17,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/labstack/echo"
+
 	"magma/orc8r/cloud/go/identity"
 	"magma/orc8r/cloud/go/services/certifier"
 	"magma/orc8r/lib/go/errors"
@@ -24,6 +26,24 @@ import (
 
 	"github.com/golang/glog"
 )
+
+func RequestOperator(c echo.Context) (*protos.Identity, error) {
+	decorate := getDecorator(c.Request())
+	req := c.Request()
+	if req == nil {
+		return nil, makeErr(decorate, http.StatusBadRequest, "invalid request")
+	}
+	glog.V(1).Infof("Received request in access middleware: %+v", req)
+
+	operator, err := getOperator(req, decorate)
+	if err != nil {
+		return nil, transformErr(decorate, err, http.StatusUnauthorized, "Invalid client credentials: %s", err)
+	}
+	if operator == nil {
+		return nil, makeErr(decorate, http.StatusUnauthorized, "missing client credentials")
+	}
+	return operator, err
+}
 
 // getOperator returns Identity of request's Operator (client).
 // If either the request is missing TLS certificate headers or the certificate's

@@ -108,6 +108,7 @@ http {
 
       grpc_set_header x-magma-client-cert-cn $ssl_client_s_dn_cn;
       grpc_set_header x-magma-client-cert-serial $ssl_client_serial;
+      grpc_set_header x-magma-client-cert-escaped $ssl_client_escaped_cert;
     }
 
     # Setting max allowed size for client requests body to 50MB
@@ -157,6 +158,20 @@ http {
     ssl_client_certificate /var/opt/magma/certs/certifier.pem;
 
     location / {
+      if ($request_method = 'OPTIONS') {
+          add_header 'Access-Control-Allow-Origin' '*';
+          add_header 'Access-Control-Allow-Methods' '*';
+          add_header 'Access-Control-Allow-Headers' '*';
+          add_header 'Access-Control-Max-Age' 1728000;
+          add_header 'Content-Type' 'text/plain; charset=utf-8';
+          add_header 'Content-Length' 0;
+          return 204;
+      }
+
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' '*' always;
+      add_header 'Access-Control-Allow-Headers' '*' always;
+      add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
       {%- if resolver %}
       resolver {{ resolver }};
       {%- endif %}
@@ -169,6 +184,7 @@ http {
 
       proxy_set_header x-magma-client-cert-cn $ssl_client_s_dn_cn;
       proxy_set_header x-magma-client-cert-serial $ssl_client_serial;
+      proxy_set_header x-magma-client-cert-escaped $ssl_client_escaped_cert;
     }
   }
 

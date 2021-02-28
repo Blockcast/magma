@@ -20,7 +20,7 @@ using magma::ServiceRegistrySingleton;
 using grpc::Channel;
 using grpc::CreateCustomChannel;
 using grpc::InsecureChannelCredentials;
-using grpc::SslCredentials;
+using grpc_impl::SslCredentials;
 using grpc::SslCredentialsOptions;
 
 namespace magma {
